@@ -6,12 +6,13 @@ INOTIFY_EVENTS=${INOTIFY_EVENTS:-"create,delete,modify,move"}
 INOTIFY_OPTONS=${INOTIFY_OPTONS:-"-r"}
 INOTIFY_EXCLUDE_PATTERN=${INOTIFY_EXCLUDE_PATTERN:-"\.sw[pox]$|.*~$|.*\.bak$|\.git/.*"}
 INOTIFY_OUTPUT_FORMAT=${INOTIFY_OUTPUT_FORMAT:-"%w%f"}
+INOTIFY_SCRIPT_DIR=${INOTIFY_SCRIPT_DIR:-"/inotify.d"}
 VOLUMES=${VOLUMES:-"/data"}
 
 inotifywait -e "${INOTIFY_EVENTS}" -m ${INOTIFY_OPTONS} --exclude="${INOTIFY_EXCLUDE_PATTERN}" "${VOLUMES}" --format "${INOTIFY_OUTPUT_FORMAT}" | \
     while read -r FILE; do
-        if [ -d /run.d ]; then
-            for f in /run.d/*; do
+        if [ -d "${INOTIFY_SCRIPT_DIR}" ]; then
+            for f in "${INOTIFY_SCRIPT_DIR}"/*; do
                 if [ -x "$f" ]; then
                     echo "Running $f ..."
                     $f "$FILE"
