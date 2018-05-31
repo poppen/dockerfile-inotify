@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eu
+set -euo pipefail
 
 SIGNAL=${SIGNAL:-"SIGHUP"}
 INOTIFY_EVENTS=${INOTIFY_EVENTS:-"create,delete,modify,move"}
