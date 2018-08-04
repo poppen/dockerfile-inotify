@@ -1,8 +1,8 @@
 #!/bin/sh
-set -euo pipefail
+set -eu
 
 SIGNAL=${SIGNAL:-"SIGHUP"}
-INOTIFY_EVENTS=${INOTIFY_EVENTS:-"create,delete,modify,move"}
+INOTIFY_EVENTS=${INOTIFY_EVENTS:-"close_write,delete,move"}
 INOTIFY_OPTONS=${INOTIFY_OPTONS:-"-r"}
 INOTIFY_EXCLUDE_PATTERN=${INOTIFY_EXCLUDE_PATTERN:-"\.sw[pox]$|.*~$|.*\.bak$|\.git/.*"}
 INOTIFY_OUTPUT_FORMAT=${INOTIFY_OUTPUT_FORMAT:-"%w%f"}
